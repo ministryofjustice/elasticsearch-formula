@@ -10,7 +10,7 @@ Formulas to set up and configure the elasticsearch server.
     <http://docs.saltstack.com/topics/conventions/formulas.html>`_.
 
 
-.. Dependencies::
+.. dependencies::
 
    This formula has a dependency on the following salt formulas –
    `java <https://github.com/ministryofjustice/java-formula>`_.
