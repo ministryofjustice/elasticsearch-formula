@@ -17,9 +17,9 @@ Dependencies
 
    This formula has a dependency on the following salt formulas:
 
-   `java <https://github.com/ministryofjustice/java-formula>`
+   `java <https://github.com/ministryofjustice/java-formula>`_
 
-   `firewall <https://github.com/ministryofjustice/firewall-formula>`
+   `firewall <https://github.com/ministryofjustice/firewall-formula>`_
 
 Available states
 ================
