@@ -15,7 +15,7 @@ include:
 /etc/elasticsearch/elasticsearch.yml:
   file:
     - managed
-    - source: salt://elasticsearch/files/elasticsearch.yml
+    - source: salt://elasticsearch/templates/elasticsearch.yml
 
 
 elasticsearch:

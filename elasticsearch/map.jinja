@@ -1,0 +1,5 @@
+{% set elasticsearch = salt['grains.filter_by']({
+    'Debian': {
+                'bind': '0.0.0.0'
+    },
+}, merge=salt['pillar.get']('elasticsearch', {})) %}
