@@ -1,5 +1,10 @@
 {% set elasticsearch = salt['grains.filter_by']({
     'Debian': {
-                'bind': '0.0.0.0'
+        'bind': '0.0.0.0',
+        'source': {
+            'file': 'elasticsearch-0.90.10.deb',
+            'path': 'http://static.dsd.io/packages',
+            'hash': 'sha1=0a0aff6a793a057edbe549c646d9d9ad7738f7cb',
+        },
     },
 }, merge=salt['pillar.get']('elasticsearch', {})) %}

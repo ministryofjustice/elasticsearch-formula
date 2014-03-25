@@ -1,16 +1,17 @@
+{% from "elasticsearch/map.jinja" import elasticsearch with context %}
 include:
   - java
 {% set es_file='elasticsearch-0.90.10.deb' %}
 
-/usr/src/packages/{{es_file}}:
+
+/usr/src/packages/{{elasticsearch.source.file}}:
   file:
     - managed
-    - source: http://static.dsd.io/packages/{{es_file}}
-    - source_hash: sha1=0a0aff6a793a057edbe549c646d9d9ad7738f7cb
+    - source: {{elasticsearch.source.path}}/{{elasticsearch.source.file}}
+    - source_hash: {{elasticsearch.source.hash}}
     - mode: 644
     - require:
       - file: /usr/src/packages
-
 
 /etc/elasticsearch/elasticsearch.yml:
   file:
@@ -22,7 +23,7 @@ elasticsearch:
   pkg:
     - installed
     - sources:
-      - elasticsearch: /usr/src/packages/{{es_file}}
+      - elasticsearch: /usr/src/packages/{{elasticsearch.source.file}}
   service:
     - running
     - enable: True
