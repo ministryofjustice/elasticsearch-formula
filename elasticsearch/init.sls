@@ -17,6 +17,7 @@ include:
   file:
     - managed
     - source: salt://elasticsearch/templates/elasticsearch.yml
+    - template: jinja
 
 
 elasticsearch:
