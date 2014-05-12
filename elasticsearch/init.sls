@@ -13,11 +13,14 @@ include:
     - require:
       - file: /usr/src/packages
 
+
 /etc/elasticsearch/elasticsearch.yml:
   file:
     - managed
     - source: salt://elasticsearch/templates/elasticsearch.yml
     - template: jinja
+    - require:
+      - pkg: elasticsearch
 
 
 elasticsearch:
