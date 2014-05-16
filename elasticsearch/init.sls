@@ -12,7 +12,7 @@ include:
     - require:
       - file: /usr/src/packages
 
-/etc/elasticsearch
+/etc/elasticsearch:
   file.directory:
     - mode: 700
 
