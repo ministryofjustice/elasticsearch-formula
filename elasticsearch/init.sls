@@ -5,31 +5,31 @@ include:
 
 
 /usr/src/packages/{{elasticsearch.source.file}}:
-  file:
-    - managed
+  file.managed:
     - source: {{elasticsearch.source.path}}/{{elasticsearch.source.file}}
     - source_hash: {{elasticsearch.source.hash}}
     - mode: 644
     - require:
       - file: /usr/src/packages
 
+/etc/elasticsearch
+  file.directory:
+    - mode: 700
 
 /etc/elasticsearch/elasticsearch.yml:
-  file:
-    - managed
+  file.managed:
     - source: salt://elasticsearch/templates/elasticsearch.yml
     - template: jinja
     - require:
       - pkg: elasticsearch
+      - file: /etc/elasticsearch
 
 
 elasticsearch:
-  pkg:
-    - installed
+  pkg.installed:
     - sources:
       - elasticsearch: /usr/src/packages/{{elasticsearch.source.file}}
-  service:
-    - running
+  service.running:
     - enable: True
     - watch:
       - pkg: elasticsearch
