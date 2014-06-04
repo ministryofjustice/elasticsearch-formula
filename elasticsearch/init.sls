@@ -14,14 +14,20 @@ include:
 
 /etc/elasticsearch:
   file.directory:
-    - mode: 700
+    - mode: 750
+    - owner: root
+    - group: elasticsearch
+    - require:
+      - pkg: elasticsearch
 
 /etc/elasticsearch/elasticsearch.yml:
   file.managed:
     - source: salt://elasticsearch/templates/elasticsearch.yml
     - template: jinja
+    - mode: 640
+    - owner: root
+    - group: elasticsearch
     - require:
-      - pkg: elasticsearch
       - file: /etc/elasticsearch
 
 
