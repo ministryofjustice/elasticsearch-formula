@@ -14,8 +14,9 @@ include:
 
 /etc/elasticsearch:
   file.directory:
-    - mode: 700
-    - owner: elasticsearch
+    - mode: 750
+    - owner: root
+    - group: elasticsearch
     - require:
       - pkg: elasticsearch
 
@@ -23,6 +24,9 @@ include:
   file.managed:
     - source: salt://elasticsearch/templates/elasticsearch.yml
     - template: jinja
+    - mode: 640
+    - owner: root
+    - group: elasticsearch
     - require:
       - file: /etc/elasticsearch
 
