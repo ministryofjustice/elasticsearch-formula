@@ -1,2 +1,3 @@
 {% from "elasticsearch/map.jinja" import elasticsearch with context %}
 network.bind_host: {{ elasticsearch.bind }}
+script.disable_dynamic: true
