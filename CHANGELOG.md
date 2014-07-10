@@ -1,3 +1,7 @@
+## Version 1.0.4
+
+* Disable dynamic scripting - we don't use it and it is insecure
+
 ## Version 1.0.3
 
 * Fix permissions of config files under /etc/elasticsearch
