@@ -1,0 +1,5 @@
+{% from "elasticsearch/map.jinja" import elasticsearch with context %}
+
+{% for key, value in elasticsearch.default.iteritems() %}
+{{key}}={{value}}
+{% endfor %}

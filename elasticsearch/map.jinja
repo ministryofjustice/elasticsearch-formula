@@ -6,5 +6,8 @@
             'path': 'http://static.dsd.io/packages',
             'hash': 'sha1=82e5fd804391d58c13d73809078f3309ffe8dedd',
         },
+        'default': {
+            'ES_HEAP_SIZE': '1g',
+        }
     },
 }, merge=salt['pillar.get']('elasticsearch', {})) %}
