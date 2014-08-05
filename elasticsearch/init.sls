@@ -42,6 +42,13 @@ elasticsearch:
       - file: /etc/elasticsearch/elasticsearch.yml
 
 
+#as recommended by
+#http://www.elasticsearch.org/guide/en/elasticsearch/reference/1.x/setup-configuration.html#setup-configuration
+vm.max_map_count:
+  sysctl.present:
+    - value: 262144
+
+
 {% from 'firewall/lib.sls' import firewall_enable with  context %}
 {{ firewall_enable('elasticsearch-http',9200,proto='tcp') }}
 {{ firewall_enable('elasticsearch-tcp',9300,proto='tcp') }}

@@ -1,3 +1,8 @@
+## Version x.y.z
+
+* Default installation 1.3.1 (was 0.90 - state.highstate will not force upgrade)
+* vm.max_map_count = 262144 to work with new 1.x storage
+
 ## Version 1.0.4
 
 * Disable dynamic scripting - we don't use it and it is insecure
