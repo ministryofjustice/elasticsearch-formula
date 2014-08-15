@@ -1,6 +1,7 @@
 {% from "elasticsearch/map.jinja" import elasticsearch with context %}
 include:
   - java
+  - .monitoring
 {% set es_file='elasticsearch-0.90.10.deb' %}
 
 
@@ -62,3 +63,4 @@ vm.max_map_count:
 {% from 'firewall/lib.sls' import firewall_enable with  context %}
 {{ firewall_enable('elasticsearch-http',9200,proto='tcp') }}
 {{ firewall_enable('elasticsearch-tcp',9300,proto='tcp') }}
+
