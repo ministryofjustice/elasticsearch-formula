@@ -37,3 +37,21 @@ Example usage::
 
     include:
       - elasticsearch
+
+Pillar variables
+~~~~~~~~~~~~~~~~
+
+- elasticsearch:default
+
+  A dictionary of key/value pairs to put into /etc/default/elasticsearch. For
+  possible values look over docs/etc-default-elasticsearch and
+  http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/setup-configuration.html
+
+  Example::
+
+    elasticsearch:
+      default:
+        ES_HEAP_SIZE: 2g
+        MAX_LOCKED_MEMORY: unlimited
+
+  (Do not treat these as recommend settings, they are just examples)
