@@ -31,6 +31,15 @@ include:
       - file: /etc/elasticsearch
 
 
+/etc/default/elasticsearch:
+  file.managed:
+    - source: salt://elasticsearch/templates/elasticsearch
+    - template: jinja
+    - mode: 640
+    - owner: root
+    - group: root
+
+
 elasticsearch:
   pkg.installed:
     - sources:
@@ -40,6 +49,14 @@ elasticsearch:
     - watch:
       - pkg: elasticsearch
       - file: /etc/elasticsearch/elasticsearch.yml
+      - file: /etc/default/elasticsearch
+
+
+#as recommended by
+#http://www.elasticsearch.org/guide/en/elasticsearch/reference/1.x/setup-configuration.html#setup-configuration
+vm.max_map_count:
+  sysctl.present:
+    - value: 262144
 
 
 {% from 'firewall/lib.sls' import firewall_enable with  context %}
