@@ -1,5 +1,10 @@
 #!/usr/bin/env python
 
+"""
+Based on Matt Weber es2graphite
+https://github.com/mattweber/es2graphite
+"""
+
 import re
 import sys
 import json
@@ -151,21 +156,23 @@ def get_metrics():
     cluster_health_metrics = process_cluster_health(args.prefix, cluster_health)
     send_to_graphite(cluster_health_metrics)
 
-    indices_status_url = 'http://%s/_status' % get_es_host()
-    log('%s: GET %s' % (dt, indices_status_url))
-    indices_status_data = urllib2.urlopen(indices_status_url).read()
-    indices_status = json.loads(indices_status_data)
-    indices_status_metrics = process_indices_status(args.prefix, indices_status)
-    send_to_graphite(indices_status_metrics)
+    if args.status:
+        indices_status_url = 'http://%s/_status' % get_es_host()
+        log('%s: GET %s' % (dt, indices_status_url))
+        indices_status_data = urllib2.urlopen(indices_status_url).read()
+        indices_status = json.loads(indices_status_data)
+        indices_status_metrics = process_indices_status(args.prefix, indices_status)
+        send_to_graphite(indices_status_metrics)
 
-    indices_stats_url = 'http://%s/_stats?all=true' % get_es_host()
-    if args.shard_stats:
-        indices_stats_url = '%s&level=shards' % indices_stats_url
-    log('%s: GET %s' % (dt, indices_stats_url))
-    indices_stats_data = urllib2.urlopen(indices_stats_url).read()
-    indices_stats = json.loads(indices_stats_data)
-    indices_stats_metrics = process_indices_stats(args.prefix, indices_stats)
-    send_to_graphite(indices_stats_metrics)
+    if args.indices or args.shard_stats:
+        indices_stats_url = 'http://%s/_stats?all=true' % get_es_host()
+        if args.shard_stats:
+            indices_stats_url = '%s&level=shards' % indices_stats_url
+        log('%s: GET %s' % (dt, indices_stats_url))
+        indices_stats_data = urllib2.urlopen(indices_stats_url).read()
+        indices_stats = json.loads(indices_stats_data)
+        indices_stats_metrics = process_indices_stats(args.prefix, indices_stats)
+        send_to_graphite(indices_stats_metrics)
 
     if args.segments:
         segments_status_url = 'http://%s/_segments' % get_es_host()
@@ -177,13 +184,15 @@ def get_metrics():
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Send elasticsearch metrics to graphite')
-    parser.add_argument('-p', '--prefix', default='es', help='graphite metric prefix. Default: %(default)s')
+    parser.add_argument('-p', '--prefix', default='services', help='graphite metric prefix. Default: %(default)s')
     parser.add_argument('-g', '--graphite-host', default='localhost', help='graphite hostname. Default: %(default)s')
     parser.add_argument('-o', '--graphite-port', default=2004, type=int, help='graphite pickle protocol port. Default: %(default)s')
     parser.add_argument('-i', '--interval', default=60, type=int, help='interval in seconds. Default: %(default)s')
-    parser.add_argument('--health-level', choices=['cluster', 'indices', 'shards'], default='indices', help='The level of health metrics. Default: %(default)s')
+    parser.add_argument('--health-level', choices=['cluster', 'indices', 'shards'], default='cluster', help='The level of health metrics. Default: %(default)s')
+    parser.add_argument('--indices', action='store_true', help='Collect indice level metrics.')
     parser.add_argument('--shard-stats', action='store_true', help='Collect shard level stats metrics.')
     parser.add_argument('--segments', action='store_true', help='Collect low-level segment metrics.')
+    parser.add_argument('--status', action='store_true', help='Collect low-level metrics for each index.')
     parser.add_argument('-d', '--debug', action='store_true', help='Print metrics, don\'t send to graphite')
     parser.add_argument('-v', '--verbose', action='store_true', help='Verbose output')
     parser.add_argument('es', nargs='+', help='elasticsearch host:port', metavar='ES_HOST')

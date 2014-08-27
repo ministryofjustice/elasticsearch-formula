@@ -55,3 +55,9 @@ Pillar variables
         MAX_LOCKED_MEMORY: unlimited
 
   (Do not treat these as recommend settings, they are just examples)
+
+warning
+=======
+
+Bear in mind that integration with graphite assumes that lowest resolution on graphite is 10s
+
