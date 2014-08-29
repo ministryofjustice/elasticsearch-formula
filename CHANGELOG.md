@@ -1,6 +1,6 @@
-## Version 1.1.x
+## Version 1.2.0
 
-* Report ES metrics to graphite and install sensu alert that checks for to high memory usage within JVM
+* Report ES metrics to graphite and install sensu alert that checks for too high memory usage within JVM
 
 ## Version 1.1.0
 
