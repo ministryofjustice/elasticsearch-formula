@@ -1,3 +1,7 @@
+## Version 1.1.x
+
+* Report ES metrics to graphite and install sensu alert that checks for to high memory usage within JVM
+
 ## Version 1.1.0
 
 * Default installation package now 1.3.1 (was 0.90 - state.highstate will not force upgrade)
