@@ -1,6 +1,7 @@
 {% from "elasticsearch/map.jinja" import elasticsearch with context %}
 include:
   - java
+  - python
 
 
 /usr/src/packages/{{elasticsearch.source.file}}:
@@ -98,4 +99,22 @@ es2graphite:
                         occurrences=2) }}
 
 
+{% endif %}
+
+
+elasticsearch-curator:
+  pip.installed:
+    - require:
+      - pkg: python-pip
+
+{% if elasticsearch.curator.enabled %}
+curator-cron:
+  cron.present:
+    - name: "/usr/local/bin/curator {{elasticsearch.curator.options}} 2> /var/log/elasticsearch/curator.err > /var/log/elasticsearch/curator.out"
+    - identifier: elasticsearch-curator-cron
+    - user: elasticsearch
+    - hour: '3'
+    - minute: random
+    - require:
+      - pkg: elasticsearch
 {% endif %}
