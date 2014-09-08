@@ -1,4 +1,4 @@
-## Version 1.x.x
+## Version 1.3.0
 
 * Add elasticsearch-curator cron job to purge old logstash database
 
