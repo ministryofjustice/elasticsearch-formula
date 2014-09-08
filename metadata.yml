@@ -1,2 +1,5 @@
 dependencies:
 - git@github.com:ministryofjustice/java-formula.git
+
+entry:
+ - elasticsearch
