@@ -8,6 +8,10 @@
         },
         'default': {
             'ES_HEAP_SIZE': '1g',
+        },
+        'curator': {
+            'enabled': False,
+            'options': 'delete --older-than 90',
         }
     },
 }, merge=salt['pillar.get']('elasticsearch', {})) %}
