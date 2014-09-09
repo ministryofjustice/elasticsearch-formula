@@ -1,5 +1,7 @@
 dependencies:
 - git@github.com:ministryofjustice/java-formula.git
+- git@github.com:ministryofjustice/firewall-formula.git
+- git@github.com:ministryofjustice/sensu-formula.git
 
 entry:
  - elasticsearch
