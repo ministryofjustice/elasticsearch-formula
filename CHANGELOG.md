@@ -1,3 +1,7 @@
+## Version 1.3.1
+
+* Add sensu formula dependencies so that JVM memory check works
+
 ## Version 1.3.0
 
 * Add elasticsearch-curator cron job to purge old logstash database
