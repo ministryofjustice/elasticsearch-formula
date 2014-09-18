@@ -2,6 +2,9 @@
 include:
   - java
   - python
+{% if salt['pillar.get']('monitoring:enabled', True) %}
+  - sensu.client
+{% endif %}
 
 
 /usr/src/packages/{{elasticsearch.source.file}}:
