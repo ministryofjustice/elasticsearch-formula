@@ -1,6 +1,8 @@
 {% set elasticsearch = salt['grains.filter_by']({
     'Debian': {
         'bind': '0.0.0.0',
+        'cluster_name': False,
+        'data_dir': False,
         'source': {
             'file': 'elasticsearch-1.3.1.deb',
             'path': 'http://static.dsd.io/packages',
