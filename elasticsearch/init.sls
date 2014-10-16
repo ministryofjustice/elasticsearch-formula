@@ -55,6 +55,18 @@ elasticsearch:
       - file: /etc/default/elasticsearch
 
 
+{%- if elasticsearch.data_dir %}
+elasticsearch.data_dir:
+  file.directory:
+    - name: {{ elasticsearch.data_dir }}
+    - owner: elasticsearch
+    - group: elasticsearch
+    - mode: 755
+    - require_in:
+      - service: elasticsearch
+
+{%- endif %}
+
 #as recommended by
 #http://www.elasticsearch.org/guide/en/elasticsearch/reference/1.x/setup-configuration.html#setup-configuration
 vm.max_map_count:
