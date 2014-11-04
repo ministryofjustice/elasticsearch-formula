@@ -1,10 +1,13 @@
 require 'serverspec'
+require 'net/http'
+require 'uri'
 
 set :backend, :exec
 
 set :path, '/sbin:/usr/local/sbin:$PATH'
 
 describe "elasticsearch setup" do
+
   describe file("/etc/elasticsearch") do
     it {should be_directory}
     it {should be_mode 750}
@@ -57,6 +60,14 @@ describe "elasticsearch setup" do
 
     describe iptables do
       it { should have_rule("-A INPUT -p tcp -m tcp --dport #{port} -m comment --comment elasticsearch-#{proto}-tcp-#{port} -j ACCEPT") }
+    end
+  end
+
+  describe "ES cluster health" do
+    uri = URI.parse("http://localhost:#{es_listen["http"]}/_cluster/health")
+    resp = Net::HTTP.get_response(uri)
+    it "should be healthy" do
+      resp.code == 200
     end
   end
 
