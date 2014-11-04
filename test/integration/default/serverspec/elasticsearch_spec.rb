@@ -40,14 +40,23 @@ describe "elasticsearch setup" do
     its(:stdout) { should match /^vm\.max_map_count = 262144$/}
   end
 
-  describe iptables do
-    es_fw = {
-      "http" => 9200,
-      "tcp" => 9300
-    }
+  es_listen = {
+    "http" => 9200,
+    "tcp" => 9300
+  }
 
-    es_fw.each do |prot, port|
-      it { should have_rule("-A INPUT -p tcp -m tcp --dport #{port} -m comment --comment elasticsearch-#{prot}-tcp-#{port} -j ACCEPT") }
+  describe service("elasticsearch") do
+    it { should be_enabled }
+    it { should be_running }
+  end
+
+  es_listen.each do |proto, port|
+    describe port(port) do
+      it { should be_listening }
+    end
+
+    describe iptables do
+      it { should have_rule("-A INPUT -p tcp -m tcp --dport #{port} -m comment --comment elasticsearch-#{proto}-tcp-#{port} -j ACCEPT") }
     end
   end
 
