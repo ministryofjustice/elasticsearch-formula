@@ -90,18 +90,6 @@ es2graphite:
       - file: /usr/local/bin/es2graphite.py
       - service: elasticsearch
 
-
-### Sensu check
-
-# es-heap-used - warning 75% critical 90%
-{% from "sensu/lib.sls" import sensu_check_graphite with context %}
-{{ sensu_check_graphite("es-heap-used",
-                        "'services.elasticsearch.*.jvm.mem.heap_used_percent'",
-                        "-a 600 -w 75 -c 90",
-                        "ES Heap Memory Used Percentage",
-                        occurrences=2) }}
-
-
 {% endif %}
 
 
