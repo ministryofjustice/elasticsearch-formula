@@ -1,11 +1,16 @@
 {% from "elasticsearch/map.jinja" import elasticsearch with context %}
 include:
+  - firewall
   - java
   - python
 {% if salt['pillar.get']('monitoring:enabled', True) %}
   - sensu.client
 {% endif %}
 
+/usr/src/packages:
+  file.directory:
+    - mode: 755
+    - owner: root
 
 /usr/src/packages/{{elasticsearch.source.file}}:
   file.managed:
