@@ -1,3 +1,12 @@
 {% from "elasticsearch/map.jinja" import elasticsearch with context %}
 network.bind_host: {{ elasticsearch.bind }}
 script.disable_dynamic: true
+path.data: {{ elasticsearch.data_path }}
+path.logs: {{ elasticsearch.logs_path }}
+
+{% if elasticsearch.cluster_name %}
+cluster.name: {{ elasticsearch.cluster_name }}
+{% endif %}
+{% if elasticsearch.node_name %}
+node.name: {{ elasticsearch.node_name }}
+{% endif %}

@@ -1,3 +1,10 @@
+## CURRENT
+
+* Allow override of data directory
+* Allow override of log directory
+* Allow specification of cluster name
+* Allow specification of node name
+
 ## Version 1.3.1
 
 * Add sensu formula dependencies so that JVM memory check works
