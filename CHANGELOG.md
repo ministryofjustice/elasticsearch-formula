@@ -1,4 +1,4 @@
-## CURRENT
+## Version 1.4.0
 
 * Allow override of data directory
 * Allow override of log directory
