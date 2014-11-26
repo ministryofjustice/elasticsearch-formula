@@ -1,3 +1,7 @@
+## CURRENT
+
+* Fix up sensu monitor to not run on every node. See UPGRADING.md
+
 ## Version 1.4.0
 
 * Allow override of data directory
