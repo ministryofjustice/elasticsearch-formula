@@ -1,4 +1,4 @@
-## CURRENT
+## Version 1.5.0
 
 * Fix up sensu monitor to not run on every node. See UPGRADING.md
 
