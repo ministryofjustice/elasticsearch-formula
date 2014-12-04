@@ -4,9 +4,6 @@ include:
   - bootstrap
   - java
   - python
-{% if salt['pillar.get']('monitoring:enabled', True) %}
-  - sensu.client
-{% endif %}
 
 /usr/src/packages/{{elasticsearch.source.file}}:
   file.managed:
@@ -90,18 +87,6 @@ es2graphite:
       - file: /etc/init/es2graphite.conf
       - file: /usr/local/bin/es2graphite.py
       - service: elasticsearch
-
-
-### Sensu check
-
-# es-heap-used - warning 75% critical 90%
-{% from "sensu/lib.sls" import sensu_check_graphite with context %}
-{{ sensu_check_graphite("es-heap-used",
-                        "'services.elasticsearch.*.jvm.mem.heap_used_percent'",
-                        "-a 600 -w 75 -c 90",
-                        "ES Heap Memory Used Percentage",
-                        occurrences=2) }}
-
 
 {% endif %}
 
