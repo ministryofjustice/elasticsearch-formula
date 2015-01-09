@@ -5,6 +5,8 @@
         'logs_path': '/var/log/elasticsearch',
         'node_name': salt['grains.get']('host'),
         'cluster_name': None,
+        'fielddata_cache_size': '40%',
+        'fielddata_cache_expire': None,
         'source': {
             'file': 'elasticsearch-1.3.1.deb',
             'path': 'http://static.dsd.io/packages',
