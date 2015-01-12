@@ -1,3 +1,7 @@
+## CURRENT
+
+* Allow configuration of fielddata index cache
+
 ## Version 1.5.0
 
 * Fix up sensu monitor to not run on every node. See UPGRADING.md

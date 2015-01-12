@@ -10,3 +10,9 @@ cluster.name: {{ elasticsearch.cluster_name }}
 {% if elasticsearch.node_name %}
 node.name: {{ elasticsearch.node_name }}
 {% endif %}
+{% if elasticsearch.fielddata_cache_size %}
+indices.fielddata.cache.size: {{ elasticsearch.fielddata_cache_size }}
+{% endif %}
+{% if elasticsearch.fielddata_cache_expire %}
+indices.fielddata.cache.expire: {{ elasticsearch.fielddata_cache_expire }}
+{% endif %}
