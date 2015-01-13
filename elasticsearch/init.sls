@@ -96,14 +96,41 @@ elasticsearch-curator:
     - require:
       - pkg: python-pip
 
-{% if elasticsearch.curator.enabled %}
+# Legacy, remove
 curator-cron:
-  cron.present:
-    - name: "/usr/local/bin/curator {{elasticsearch.curator.options}} 2> /var/log/elasticsearch/curator.err > /var/log/elasticsearch/curator.out"
+  cron.absent:
     - identifier: elasticsearch-curator-cron
+    - user: elasticsearch
+
+{% if elasticsearch.curator.enabled %}
+curator-delete-cron:
+{%   if elasticsearch.curator.delete_options %}
+  cron.present:
+    - name: "/usr/local/bin/curator delete {{elasticsearch.curator.delete_options}} 2>&1 | logger -t curator-delete"
+    - identifier: elasticsearch-curator-delete
     - user: elasticsearch
     - hour: '3'
     - minute: random
     - require:
       - pkg: elasticsearch
+{%   else %}
+  cron.absent:
+    - identifier: elasticsearch-curator-cron
+    - user: elasticsearch
+{%   endif %}
+curator-optimize-cron:
+{%   if elasticsearch.curator.optimize_options %}
+  cron.present:
+    - name: "/usr/local/bin/curator optimize {{elasticsearch.curator.optimize_options}} 2>&1 | logger -t curator-optimize"
+    - identifier: elasticsearch-curator-optimize
+    - user: elasticsearch
+    - hour: '4'
+    - minute: random
+    - require:
+      - pkg: elasticsearch
+{%   else %}
+  cron.absent:
+    - identifier: elasticsearch-curator-optimize
+    - user: elasticsearch
+{%   endif %}
 {% endif %}
