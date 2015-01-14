@@ -62,12 +62,12 @@ Pillar variables
   Configuration for the 'curator' housekeeping tool, specifically the 'delete'
   and 'optimize' operations, enabled via cron.
 
-  Example (highlighting defaults)::
+  Example::
 
     elasticsearch:
       curator:
         enabled: True
-        delete_options: None
+        delete_options: '--older-than 90'
         optimize_options: '--older-than 3 --max_num_segments 1'
 
 
