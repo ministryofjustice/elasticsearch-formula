@@ -2,7 +2,8 @@
 elasticsearch
 =======
 
-Formulas to set up and configure the elasticsearch server.
+Formulas to set up and configure the elasticsearch server, and associated
+housekeeping tasks via Curator.
 
 .. note::
 
@@ -55,6 +56,20 @@ Pillar variables
         MAX_LOCKED_MEMORY: unlimited
 
   (Do not treat these as recommend settings, they are just examples)
+
+- elasticsearch:curator
+
+  Configuration for the 'curator' housekeeping tool, specifically the 'delete'
+  and 'optimize' operations, enabled via cron.
+
+  Example (highlighting defaults)::
+
+    elasticsearch:
+      curator:
+        enabled: True
+        delete_options: None
+        optimize_options: '--older-than 3 --max_num_segments 1'
+
 
 warning
 =======
