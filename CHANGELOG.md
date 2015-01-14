@@ -1,3 +1,8 @@
+## CURRENT
+
+* Add optimize step to curator crons. Optimizing helps to reduce heap usage.
+* Adjust curator delete job to not run by default (DANGER!)
+
 ## Version 1.6.0
 
 * Allow configuration of fielddata index cache

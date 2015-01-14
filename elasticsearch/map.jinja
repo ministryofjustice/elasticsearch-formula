@@ -16,8 +16,9 @@
             'ES_HEAP_SIZE': '1g',
         },
         'curator': {
-            'enabled': False,
-            'options': 'delete --older-than 90',
+            'enabled': True,
+            'delete_options': None,
+            'optimize_options': '--older-than 3 --max_num_segments 1',
         }
     },
 }, merge=salt['pillar.get']('elasticsearch', {})) %}
