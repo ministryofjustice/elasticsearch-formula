@@ -2,6 +2,7 @@
 
 * Add optimize step to curator crons. Optimizing helps to reduce heap usage.
 * Adjust curator delete job to not run by default (DANGER!)
+* Remove supervisor dependency
 
 ## Version 1.6.0
 
