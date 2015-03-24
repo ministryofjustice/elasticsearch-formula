@@ -16,3 +16,9 @@ indices.fielddata.cache.size: {{ elasticsearch.fielddata_cache_size }}
 {% if elasticsearch.fielddata_cache_expire %}
 indices.fielddata.cache.expire: {{ elasticsearch.fielddata_cache_expire }}
 {% endif %}
+
+# As per CVE-2015-1427 advisory:
+script:
+  groovy:
+    sandbox:
+      enabled: false
