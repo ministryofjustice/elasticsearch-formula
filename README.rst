@@ -66,7 +66,7 @@ Pillar variables
 
   Clustering is not enabled by default.
 
-  Search line is there to give you control over how you search for hosts to cluster with.
+  elasticsearch.clustersearch provides you control over how hosts recognise oneanother to cluster correctly - in the default case it is set to look for hosts with names starting with elasticsearch, but could be set to role:elasticsearch or similar depending on your needs.
 
   Note that Clustering relies upon salt mine::
 
