@@ -64,7 +64,16 @@ Pillar variables
         cluster: True
         clustersearch: 'elasticsearch*'
 
-  
+  Clustering is not enabled by default.
+
+  Search line is there to give you control over how you search for hosts to cluster with.
+
+  Note that Clustering relies upon salt mine::
+
+  mine_functions:
+    network.ip_addrs: []
+  mine_interval: 2
+ 
 - elasticsearch:curator
 
   Configuration for the 'curator' housekeeping tool, specifically the 'delete'
