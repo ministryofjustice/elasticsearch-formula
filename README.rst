@@ -57,6 +57,14 @@ Pillar variables
 
   (Do not treat these as recommend settings, they are just examples)
 
+  Clustering::
+
+    elasticsearch:
+      default:
+        cluster: True
+        clustersearch: 'elasticsearch*'
+
+  
 - elasticsearch:curator
 
   Configuration for the 'curator' housekeeping tool, specifically the 'delete'

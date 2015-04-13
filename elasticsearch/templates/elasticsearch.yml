@@ -4,6 +4,16 @@ script.disable_dynamic: true
 path.data: {{ elasticsearch.data_path }}
 path.logs: {{ elasticsearch.logs_path }}
 
+{% if elasticsearch.cluster %}
+discovery.zen.ping.multicast.enabled: false
+{%- set addrs = salt['mine.get'](elasticsearch.clustersearch, 'network.ip_addrs') %}
+{%- if addrs is defined %}
+discovery.zen.ping.unicast.hosts:
+{%- for name, addrlist in addrs.items() %}
+  - {{ addrlist|first() }}{% endfor %}
+{% endif %}
+{% endif %}
+
 {% if elasticsearch.cluster_name %}
 cluster.name: {{ elasticsearch.cluster_name }}
 {% endif %}
