@@ -1,9 +1,11 @@
+
 ## CURRENT
 
 * Add optimize step to curator crons. Optimizing helps to reduce heap usage.
 * Adjust curator delete job to not run by default (DANGER!)
 * Remove supervisor dependency
 * Patched [CVE-2015-1427](https://www.elastic.co/blog/elasticsearch-1-4-3-and-1-3-8-released)
+* Added clustering and cluster/clustersearch flag.
 
 ## Version 1.6.0
 

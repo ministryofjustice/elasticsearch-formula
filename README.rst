@@ -57,6 +57,23 @@ Pillar variables
 
   (Do not treat these as recommend settings, they are just examples)
 
+  Clustering for AWS::
+
+    elasticsearch:
+      default:
+        clusterunicast: True
+        clustersearch: 'elasticsearch*'
+
+  Clustering will be done by default on local broadcast without any configuration, but broadcast doesn't work on AWS.. so to get arround that end let Salt dynamically inform the elasticsearch config to do unicast clustering, set elasticsearch.clusterunicast to True.
+
+  elasticsearch.clustersearch provides you control over how hosts find oneanother to cluster correctly - in the default case it is set to look for hosts with names starting with elasticsearch, but could be set to role:elasticsearch or similar depending on your needs.
+
+  Note that Clustering relies upon salt mine::
+
+  mine_functions:
+    network.ip_addrs: []
+  mine_interval: 2
+ 
 - elasticsearch:curator
 
   Configuration for the 'curator' housekeeping tool, specifically the 'delete'
