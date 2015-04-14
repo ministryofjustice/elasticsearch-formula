@@ -4,7 +4,7 @@ script.disable_dynamic: true
 path.data: {{ elasticsearch.data_path }}
 path.logs: {{ elasticsearch.logs_path }}
 
-{% if elasticsearch.cluster %}
+{% if elasticsearch.clusterunicast %}
 discovery.zen.ping.multicast.enabled: false
 {%- set addrs = salt['mine.get'](elasticsearch.clustersearch, 'network.ip_addrs') %}
 {%- if addrs is defined %}
