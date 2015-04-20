@@ -1,31 +1,46 @@
-{% from "elasticsearch/map.jinja" import elasticsearch with context %}
+{% from "elasticsearch/map.jinja" import elasticsearch with context -%}
 network.bind_host: {{ elasticsearch.bind }}
 script.disable_dynamic: true
 path.data: {{ elasticsearch.data_path }}
 path.logs: {{ elasticsearch.logs_path }}
 
-{% if elasticsearch.clusterunicast %}
+{% if elasticsearch.clusterunicast -%}
 discovery.zen.ping.multicast.enabled: false
-{%- set addrs = salt['mine.get'](elasticsearch.clustersearch, 'network.ip_addrs') %}
-{%- if addrs is defined %}
 discovery.zen.ping.unicast.hosts:
-{%- for name, addrlist in addrs.items() %}
-  - {{ addrlist|first() }}{% endfor %}
-{% endif %}
-{% endif %}
+{% for host in elasticsearch.clusterhosts -%}
+  - {{host}}
+{% endfor %}
+{%- endif %}
 
-{% if elasticsearch.cluster_name %}
+{% if elasticsearch.cluster_minimum_master_nodes -%}
+discovery.zen.minimum_master_nodes: {{ elasticsearch.cluster_minimum_master_nodes }}
+{%- endif %}
+
+{% if elasticsearch.cluster_name -%}
 cluster.name: {{ elasticsearch.cluster_name }}
-{% endif %}
-{% if elasticsearch.node_name %}
+{%- endif %}
+
+{% if elasticsearch.node_name -%}
 node.name: {{ elasticsearch.node_name }}
-{% endif %}
-{% if elasticsearch.fielddata_cache_size %}
+{%- endif %}
+
+{% if elasticsearch.fielddata_cache_size -%}
 indices.fielddata.cache.size: {{ elasticsearch.fielddata_cache_size }}
-{% endif %}
-{% if elasticsearch.fielddata_cache_expire %}
+{%- endif %}
+
+{% if elasticsearch.fielddata_cache_expire -%}
 indices.fielddata.cache.expire: {{ elasticsearch.fielddata_cache_expire }}
-{% endif %}
+{%- endif %}
+
+{% if elasticsearch.gateway_expected_nodes -%}
+gateway.expected_nodes: 3
+{%- endif %}
+{% if elasticsearch.gateway_recover_after_time -%}
+gateway.recover_after_time: 5m
+{%- endif %}
+{% if elasticsearch.gateway_recover_after_nodes -%}
+gateway.recover_after_nodes: 2
+{%- endif %}
 
 # As per CVE-2015-1427 advisory:
 script:
