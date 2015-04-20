@@ -52,6 +52,14 @@ elasticsearch:
       - file: /etc/elasticsearch/elasticsearch.yml
       - file: /etc/default/elasticsearch
 
+elasticsearch-data-dir:
+  file.directory:
+    - name: {{elasticsearch.data_path}}
+    - owner: elasticsearch
+    - group: elasticsearch
+    - mode: 0755
+    - require:
+      - pkg: elasticsearch
 
 #as recommended by
 #http://www.elasticsearch.org/guide/en/elasticsearch/reference/1.x/setup-configuration.html#setup-configuration
